@@ -79,21 +79,21 @@ final class ClientTests: XCTestCase {
         XCTAssertFalse(formattedDate.isEmpty)
     }
 
-//    func test_formatDateVersString_WhenDateIsInvalid_ThenReturnsOriginalString() {
-//        // GIVEN
-//        let invalidDate = "invalidDate"
-//        let client = Client(
-//            nom: "JohnDoe",
-//            email: "johndoe@example.com",
-//            dateCreationString: invalidDate
-//        )
-//
-//        // WHEN
-//        _ = client.formatDateVersString()
-//
-//        // THEN
-//        XCTAssertTrue(Calendar.current.isDateInToday(client.dateCreation))  // À regarder
-//    }
+    func test_formatDateVersString_WhenDateIsInvalid_ThenReturnsOriginalString() {
+        // GIVEN
+        let invalidDate = "invalidDate"
+        let client = Client(
+            nom: "JohnDoe",
+            email: "johndoe@example.com",
+            dateCreationString: invalidDate
+        )
+
+        // WHEN
+        _ = client.formatDateVersString()
+
+        // THEN
+        XCTAssertTrue(Calendar.current.isDateInToday(client.dateCreation))  // À regarder
+    }
 
     func test_estNouveauClient_WhenDateIsToday_ThenReturnsTrue() {
         // GIVEN
@@ -151,6 +151,22 @@ final class ClientTests: XCTestCase {
 
         // THEN
         XCTAssertFalse(client1.clientExiste(clientsList: [client2]))
+    }
+    
+    func test_formatDateVersString_WhenFormatterReturnsNil_ThenReturnsFallback() {
+        // GIVEN
+        let dateCreationString = "1999-12-31"
+        let client = Client(
+            nom: "JohnDoe",
+            email: "johndoe@example.com",
+            dateCreationString: dateCreationString
+        )
+
+        // WHEN
+        let result = client.formatDateVersString()
+
+        // THEN
+        XCTAssertEqual(result, dateCreationString)
     }
    
 }

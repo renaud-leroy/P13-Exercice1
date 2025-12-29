@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct ListClientsView: View {
-    @State var clientsList: [Client] = ModelData.chargement("Source.json")
+    let vm: ListClientsViewModel
     @State private var showModal: Bool = false
     
     var body: some View {
         NavigationStack {
-            List(clientsList, id: \.self) { client in
+            List(vm.clientsList, id: \.self) { client in
                 NavigationLink {
-                    DetailClientView(client: client)
+                    DetailClientView(vm: vm, client: client)
                 } label: {
                     Text(client.nom)
                         .font(.title3)
@@ -32,7 +32,7 @@ struct ListClientsView: View {
                 }
             }
             .sheet(isPresented: $showModal, content: {
-                AjoutClientView(dismissModal: $showModal)
+                AjoutClientView(vm: vm, dismissModal: $showModal)
             })
         }
     }
@@ -40,5 +40,5 @@ struct ListClientsView: View {
 }
 
 #Preview {
-    ListClientsView()
+    ListClientsView(vm: .init())
 }

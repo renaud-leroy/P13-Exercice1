@@ -49,7 +49,7 @@ struct Client: Codable, Hashable {
     }
     
     func clientExiste(clientsList: [Client]) -> Bool {
-        if clientsList.contains(where: { $0 == self }) {
+        if clientsList.contains(where: { $0.email == self.email }) {
             return true
         }
         return false

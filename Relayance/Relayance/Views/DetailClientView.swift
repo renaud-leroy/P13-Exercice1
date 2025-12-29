@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DetailClientView: View {
+    let vm: ListClientsViewModel
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var client: Client
     
@@ -32,6 +33,7 @@ struct DetailClientView: View {
             ToolbarItem(placement: .topBarTrailing) {
                 Button("Supprimer") {
                     // suppression
+                    vm.deleteClient(client: client)
                     self.presentationMode.wrappedValue.dismiss()
                 }
                 .foregroundStyle(.red)
@@ -42,5 +44,5 @@ struct DetailClientView: View {
 }
 
 #Preview {
-    DetailClientView(client: Client(nom: "Tata", email: "tata@email", dateCreationString: "20:32 Wed, 30 Oct 2019"))
+    DetailClientView(vm: ListClientsViewModel(), client: Client(nom: "Tata", email: "tata@email", dateCreationString: "20:32 Wed, 30 Oct 2019"))
 }

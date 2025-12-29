@@ -18,10 +18,15 @@ extension Date {
     static func stringFromDate(_ date: Date) -> String? {
         let isoDateFormatter = DateFormatter()
         isoDateFormatter.dateFormat = "dd-MM-yyyy"
-        
+
+        // Retourne nil si la date est invalide (avant l'an 2000)
+        if date < Date(timeIntervalSince1970: 946684800) {
+            return nil
+        }
+
         return isoDateFormatter.string(from: date)
     }
-    
+
     func getDay() -> Int {
         return Calendar.current.component(.day, from: self)
     }
